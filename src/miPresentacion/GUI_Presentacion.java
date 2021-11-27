@@ -48,7 +48,7 @@ public class GUI_Presentacion extends JFrame {
         miHobby.addMouseListener(escucha);
         miHobby.setBackground(Color.ORANGE);
         misExpectativas = new JButton("Creo que...");
-        misExpectativas.addMouseListener(escucha);
+        misExpectativas.addKeyListener(escucha);
         misExpectativas.setBackground(Color.ORANGE);
 
         panelBotones = new JPanel();
@@ -64,20 +64,20 @@ public class GUI_Presentacion extends JFrame {
 
     }
 
-    private class Escucha implements MouseListener {
+    private class Escucha implements MouseListener, KeyListener {
         private ImageIcon image;
 
         @Override
-        public void mouseClicked(MouseEvent e)
-        {
-            if((e.getComponent()==miFoto) && (e.getClickCount() == 1))
-            {
+        public void mouseClicked(MouseEvent e) {
+
+            if ((e.getComponent() == miFoto) && (e.getClickCount() == 1)) {
+                panelDatos.removeAll();
                 image = new ImageIcon(getClass().getResource("/recursos/EsteSoyYo.jpg"));
                 labelImage.setIcon(image);
                 panelDatos.add(labelImage);
             }
-            if((e.getComponent()==miHobby) && (e.getClickCount() == 2))
-            {
+            if ((e.getComponent() == miHobby) && (e.getClickCount() == 2)) {
+                panelDatos.removeAll();
                 image = new ImageIcon(getClass().getResource("/recursos/MiHobbie.jpg"));
                 labelImage.setIcon(image);
                 panelDatos.add(labelImage);
@@ -105,8 +105,42 @@ public class GUI_Presentacion extends JFrame {
         public void mouseExited(MouseEvent e) {
 
         }
-    }
 
+        @Override
+        public void keyTyped(KeyEvent e) {
+            if ((e.getComponent() == misExpectativas) && (e.getKeyChar() == KeyEvent.VK_M)) {
+                panelDatos.removeAll();
+                textoExpectativas.setFont(new Font("SansSerif", Font.BOLD, 22));
+                textoExpectativas.setLineWrap(true);
+                textoExpectativas.setBackground(null);
+                textoExpectativas.setWrapStyleWord(true);
+                textoExpectativas.setEditable(false);
+                textoExpectativas.setText(
+                        "Ya tengo cierta experiencia con el lenguaje de programación Java, " +
+                                "debido a que lo trabajé durante mis ultimos dos años en el " +
+                                "colegio, con este curso espero aprender más sobre este lenguaje, " +
+                                "determinar que soluciones se pueden generar gracias a este tipo de " +
+                                "programación y lo más importante, divertirme mientras aprendo :).");
+                panelDatos.add(textoExpectativas);
+                image = new ImageIcon(getClass().getResource("/recursos/Miyamura.png"));
+                labelImage.setIcon(image);
+                panelDatos.add(labelImage);
+
+                revalidate();
+                repaint();
+            }
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+        }
+    }
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
