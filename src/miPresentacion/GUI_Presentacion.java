@@ -3,8 +3,7 @@ package miPresentacion;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class GUI_Presentacion extends JFrame {
     //atributos
@@ -43,13 +42,13 @@ public class GUI_Presentacion extends JFrame {
         this.add(panelDatos, BorderLayout.CENTER);
 
         miFoto = new JButton("Este soy yo");
-        miFoto.addActionListener(escucha);
+        miFoto.addMouseListener(escucha);
         miFoto.setBackground(Color.ORANGE);
         miHobby = new JButton("Este es mi hobbie");
-        miHobby.addActionListener(escucha);
+        miHobby.addMouseListener(escucha);
         miHobby.setBackground(Color.ORANGE);
         misExpectativas = new JButton("Creo que...");
-        misExpectativas.addActionListener(escucha);
+        misExpectativas.addMouseListener(escucha);
         misExpectativas.setBackground(Color.ORANGE);
 
         panelBotones = new JPanel();
@@ -65,35 +64,21 @@ public class GUI_Presentacion extends JFrame {
 
     }
 
-    private class Escucha implements ActionListener {
+    private class Escucha implements MouseListener {
         private ImageIcon image;
 
         @Override
-        public void actionPerformed(ActionEvent e) {
-            //JOptionPane.showMessageDialog(null,"Oprimiste un botón");
-            panelDatos.removeAll();
-            if (e.getSource() == miFoto) {
+        public void mouseClicked(MouseEvent e)
+        {
+            if((e.getComponent()==miFoto) && (e.getClickCount() == 1))
+            {
                 image = new ImageIcon(getClass().getResource("/recursos/EsteSoyYo.jpg"));
                 labelImage.setIcon(image);
                 panelDatos.add(labelImage);
-            } else if (e.getSource() == miHobby) {
+            }
+            if((e.getComponent()==miHobby) && (e.getClickCount() == 2))
+            {
                 image = new ImageIcon(getClass().getResource("/recursos/MiHobbie.jpg"));
-                labelImage.setIcon(image);
-                panelDatos.add(labelImage);
-            } else {
-                textoExpectativas.setFont(new Font("SansSerif", Font.BOLD, 22));
-                textoExpectativas.setLineWrap(true);
-                textoExpectativas.setBackground(null);
-                textoExpectativas.setWrapStyleWord(true);
-                textoExpectativas.setEditable(false);
-                textoExpectativas.setText(
-                        "Ya tengo cierta experiencia con el lenguaje de programación Java, " +
-                                "debido a que lo trabajé durante mis ultimos dos años en el " +
-                                "colegio, con este curso espero aprender más sobre este lenguaje, " +
-                                "determinar que soluciones se pueden generar gracias a este tipo de " +
-                                "programación y lo más importante, divertirme mientras aprendo :).");
-                panelDatos.add(textoExpectativas);
-                image = new ImageIcon(getClass().getResource("/recursos/Miyamura.png"));
                 labelImage.setIcon(image);
                 panelDatos.add(labelImage);
             }
@@ -101,7 +86,27 @@ public class GUI_Presentacion extends JFrame {
             repaint();
         }
 
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
     }
+
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
